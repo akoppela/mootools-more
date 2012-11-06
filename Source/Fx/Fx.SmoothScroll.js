@@ -32,7 +32,7 @@ provides: [Fx.SmoothScroll]
 	initialize: function(options, context){
 		context = context || document;
 		this.doc = context.getDocument();
-		this.parent(this.doc, options);
+		Fx.Scroll.prototype.initialize.call(this, this.doc, options);
 
 		var win = context.getWindow(),
 			location = win.location.href.match(/^[^#]*/)[0] + '#',

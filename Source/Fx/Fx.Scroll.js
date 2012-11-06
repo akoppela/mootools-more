@@ -36,7 +36,7 @@ Fx.Scroll = new Class({
 
 	initialize: function(element, options){
 		this.element = this.subject = document.id(element);
-		this.parent(options);
+		Fx.prototype.initialize.call(this, options);
 
 		if (typeOf(this.element) != 'element') this.element = document.id(this.element.getDocument().body);
 
@@ -68,7 +68,7 @@ Fx.Scroll = new Class({
 	start: function(x, y){
 		if (!this.check(x, y)) return this;
 		var scroll = this.element.getScroll();
-		return this.parent([scroll.x, scroll.y], [x, y]);
+		return Fx.prototype.start.call(this, [scroll.x, scroll.y], [x, y]);
 	},
 
 	calculateScroll: function(x, y){

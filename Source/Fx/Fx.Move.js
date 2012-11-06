@@ -38,7 +38,7 @@ Fx.Move = new Class({
 		if (topLeft.top == 'auto' || topLeft.left == 'auto'){
 			element.setPosition(element.getPosition(element.getOffsetParent()));
 		}
-		return this.parent(element.position(Object.merge({}, this.options, destination, {returnPos: true})));
+		return Fx.Morph.prototype.start.call(this, element.position(Object.merge({}, this.options, destination, {returnPos: true})));
 	}
 
 });

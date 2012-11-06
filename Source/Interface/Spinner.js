@@ -63,7 +63,7 @@ var Spinner = new Class({
 	},
 
 	render: function(){
-		this.parent();
+		Chain.prototype.render.call(this);
 
 		this.element.set('id', this.options.id || 'spinner-' + String.uniqueID());
 
@@ -92,7 +92,7 @@ var Spinner = new Class({
 
 		this.active = true;
 
-		return this.parent(noFx);
+		return Chain.prototype.show.call(this, noFx);
 	},
 
 	showMask: function(noFx){
@@ -103,7 +103,7 @@ var Spinner = new Class({
 		}.bind(this);
 
 		if (noFx){
-			this.parent();
+			Chain.prototype.showMask.call(this);
 			pos();
 		} else {
 			if (!this.options.style.opacity) this.options.style.opacity = this.element.getStyle('opacity').toFloat();
@@ -125,11 +125,11 @@ var Spinner = new Class({
 			return this;
 		}
 		this.active = true;
-		return this.parent(noFx);
+		return Chain.prototype.hide.call(this, noFx);
 	},
 
 	hideMask: function(noFx){
-		if (noFx) return this.parent();
+		if (noFx) return Chain.prototype.hideMask.call(this);
 		this.element.tween('opacity', 0).get('tween').chain(function(){
 			this.element.setStyle('display', 'none');
 			this.hidden = true;
@@ -140,7 +140,7 @@ var Spinner = new Class({
 
 	destroy: function(){
 		this.content.destroy();
-		this.parent();
+		Chain.prototype.destroy.call(this);
 		this.target.eliminate('spinner');
 	}
 

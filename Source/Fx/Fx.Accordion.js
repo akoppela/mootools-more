@@ -52,7 +52,7 @@ Fx.Accordion = new Class({
 			'togglers': defined,
 			'elements': defined
 		});
-		this.parent(params.elements, params.options);
+		Fx.Elements.prototype.initialize.call(this, params.elements, params.options);
 
 		var options = this.options,
 			togglers = this.togglers = $$(params.togglers);
@@ -214,7 +214,7 @@ var Accordion = new Class({
 	Extends: Fx.Accordion,
 
 	initialize: function(){
-		this.parent.apply(this, arguments);
+		Fx.Accordion.prototype.initialize.apply(this, arguments);
 		var params = Array.link(arguments, {'container': Type.isElement});
 		this.container = params.container;
 	},
@@ -233,7 +233,7 @@ var Accordion = new Class({
 			toggler.inject(this.container);
 			element.inject(this.container);
 		}
-		return this.parent.apply(this, arguments);
+		return Fx.Accordion.prototype.addSection.apply(this, arguments);
 	}
 
 });

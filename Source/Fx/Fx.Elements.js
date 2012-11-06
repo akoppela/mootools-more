@@ -27,7 +27,7 @@ Fx.Elements = new Class({
 
 	initialize: function(elements, options){
 		this.elements = this.subject = $$(elements);
-		this.parent(options);
+		Fx.CSS.prototype.initialize.call(this, options);
 	},
 
 	compute: function(from, to, delta){
@@ -35,7 +35,7 @@ Fx.Elements = new Class({
 
 		for (var i in from){
 			var iFrom = from[i], iTo = to[i], iNow = now[i] = {};
-			for (var p in iFrom) iNow[p] = this.parent(iFrom[p], iTo[p], delta);
+			for (var p in iFrom) iNow[p] = Fx.CSS.prototype.compute.call(this, iFrom[p], iTo[p], delta);
 		}
 
 		return now;
@@ -68,7 +68,7 @@ Fx.Elements = new Class({
 			}
 		}
 
-		return this.parent(from, to);
+		return Fx.CSS.prototype.start.call(this, from, to);
 	}
 
 });

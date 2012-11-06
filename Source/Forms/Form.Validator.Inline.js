@@ -45,7 +45,7 @@ Form.Validator.Inline = new Class({
 	},
 
 	initialize: function(form, options){
-		this.parent(form, options);
+		Form.Validator.prototype.initialize.call(this, form, options);
 		this.addEvent('onElementValidate', function(isValid, field, className, warn){
 			var validator = this.getValidator(className);
 			if (!isValid && validator.getError(field)){
@@ -114,7 +114,7 @@ Form.Validator.Inline = new Class({
 	resetField: function(field){
 		field = document.id(field);
 		if (!field) return this;
-		this.parent(field);
+		Form.Validator.prototype.resetField.call(this, field);
 		field.get('validators').each(function(className){
 			this.hideAdvice(className, field);
 		}, this);
@@ -156,7 +156,7 @@ Form.Validator.Inline = new Class({
 	},
 
 	validateField: function(field, force, scroll){
-		var result = this.parent(field, force);
+		var result = Form.Validator.prototype.validateField.call(this, field, force);
 		if (((this.options.scrollToErrorsOnSubmit && scroll == null) || scroll) && !result){
 			var failed = document.id(this).getElement('.validation-failed');
 			var par = document.id(this).getParent();

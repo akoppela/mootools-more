@@ -35,7 +35,7 @@ Fx.Slide = new Class({
 
 	initialize: function(element, options){
 		element = this.element = this.subject = document.id(element);
-		this.parent(options);
+		Fx.prototype.initialize.call(this, options);
 		options = this.options;
 
 		var wrapper = element.retrieve('wrapper'),
@@ -100,7 +100,7 @@ Fx.Slide = new Class({
 			case 'out': start = caseOut; break;
 			case 'toggle': start = (layout == 0) ? caseIn : caseOut;
 		}
-		return this.parent(start[0], start[1]);
+		return Fx.prototype.start.call(this, start[0], start[1]);
 	},
 
 	slideIn: function(mode){

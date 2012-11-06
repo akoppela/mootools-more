@@ -53,11 +53,11 @@ provides: [Keyboard]
 		},
 
 		addEvent: function(type, fn, internal){
-			return this.parent(Keyboard.parse(type, this.options.defaultEventType, this.options.nonParsedEvents), fn, internal);
+			return Events.prototype.addEvent.call(this, Keyboard.parse(type, this.options.defaultEventType, this.options.nonParsedEvents), fn, internal);
 		},
 
 		removeEvent: function(type, fn){
-			return this.parent(Keyboard.parse(type, this.options.defaultEventType, this.options.nonParsedEvents), fn);
+			return Events.prototype.removeEvent.call(this, Keyboard.parse(type, this.options.defaultEventType, this.options.nonParsedEvents), fn);
 		},
 
 		toggleActive: function(){

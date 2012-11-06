@@ -33,7 +33,7 @@ Hash.Cookie = new Class({
 	},
 
 	initialize: function(name, options){
-		this.parent(name, options);
+		Cookie.prototype.initialize.call(this, name, options);
 		this.load();
 	},
 

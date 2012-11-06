@@ -182,7 +182,7 @@ Fx.Reveal = new Class({
 	},
 
 	cancel: function(){
-		this.parent.apply(this, arguments);
+		Fx.Morph.prototype.cancel.apply(this, arguments);
 		if (this.cssText != null) this.element.style.cssText = this.cssText;
 		this.hiding = false;
 		this.showing = false;

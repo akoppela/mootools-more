@@ -41,7 +41,7 @@ Drag.Move = new Class({
 	},
 
 	initialize: function(element, options){
-		this.parent(element, options);
+		Drag.prototype.initialize.call(this, element, options);
 		element = this.element;
 
 		this.droppables = $$(this.options.droppables);
@@ -75,7 +75,7 @@ Drag.Move = new Class({
 			});
 		}
 
-		this.parent(event);
+		Drag.prototype.start.call(this, event);
 	},
 
 	calculateLimit: function(){
@@ -173,7 +173,7 @@ Drag.Move = new Class({
 	},
 
 	drag: function(event){
-		this.parent(event);
+		Drag.prototype.drag.call(this, event);
 		if (this.options.checkDroppables && this.droppables.length) this.checkDroppables();
 	},
 
@@ -181,7 +181,7 @@ Drag.Move = new Class({
 		this.checkDroppables();
 		this.fireEvent('drop', [this.element, this.overed, event]);
 		this.overed = null;
-		return this.parent(event);
+		return Drag.prototype.stop.call(this, event);
 	}
 
 });

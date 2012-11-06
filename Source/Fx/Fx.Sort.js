@@ -31,7 +31,7 @@ Fx.Sort = new Class({
 	},
 
 	initialize: function(elements, options){
-		this.parent(elements, options);
+		Fx.Elements.prototype.initialize.call(this, elements, options);
 		this.elements.each(function(el){
 			if (el.getStyle('position') == 'static') el.setStyle('position', 'relative');
 		});
