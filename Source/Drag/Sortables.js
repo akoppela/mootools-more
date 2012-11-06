@@ -106,7 +106,13 @@ var Sortables = new Class({
 	},
 
 	getClone: function(event, element){
-		if (!this.options.clone) return new Element(element.tagName).inject(document.body);
+	  var fragment = Element.docFragment();
+		if (!this.options.clone) {
+		  var clone = new Element(element.tagName);
+		  fragment.appendChild(clone);
+		  return document.body.appendChild(fragment);
+		};
+		
 		if (typeOf(this.options.clone) == 'function') return this.options.clone.call(this, event, element, this.list);
 		var clone = element.clone(true).setStyles({
 			margin: 0,
@@ -124,7 +130,9 @@ var Sortables = new Class({
 			});
 		}
 
-		return clone.inject(this.list).setPosition(element.getPosition(element.getOffsetParent()));
+	  fragment.appendChild(clone);
+	  this.list.appendChild(fragment);
+		return clone.setPosition(element.getPosition(element.getOffsetParent()));
 	},
 
 	getDroppables: function(){
@@ -134,14 +142,26 @@ var Sortables = new Class({
 	},
 
 	insert: function(dragging, element){
-		var where = 'inside';
+		var where = 'inside', fragment = Element.docFragment();
 		if (this.lists.contains(element)){
 			this.list = element;
 			this.drag.droppables = this.getDroppables();
 		} else {
 			where = this.element.getAllPrevious().contains(element) ? 'before' : 'after';
 		}
-		this.element.inject(element, where);
+		fragment.appendChild(this.element);
+		switch (where) {
+		  case 'inside':
+    		element.appendChild(fragment); break;
+		  case 'before':
+        var parent = element.parentNode;
+        if (parent) parent.insertBefore(fragment, element);
+        break;
+      case 'after':
+        var parent = element.parentNode;
+        if (parent) parent.insertBefore(fragment, element.nextSibling);
+        break;
+		};
 		this.fireEvent('sort', [this.element, this.clone]);
 	},
 
@@ -176,8 +196,11 @@ var Sortables = new Class({
 			onCancel: this.end.bind(this),
 			onComplete: this.end.bind(this)
 		});
-
-		this.clone.inject(this.element, 'before');
+		
+		var fragment = Element.docFragment();
+		fragment.appendChild(this.clone);
+		var parent = this.element.parentNode;
+		if (parent) parent.insertBefore(fragment, this.element);
 		this.drag.start(event);
 	},
 
