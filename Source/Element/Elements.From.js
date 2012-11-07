@@ -31,16 +31,16 @@ Elements.from = function(text, excludeScripts){
 		container = new Element('table');
 		var tag = match[1].toLowerCase();
 		if (['td', 'th', 'tr'].contains(tag)){
-		  var fragment = Element.docFragment(), oldContainer = container;
+			var fragment = Element.docFragment(), oldContainer = container;
 			container = new Element('tbody');
 			fragment.appendChild(container);
 			oldContainer.appendChild(fragment);
 			if (tag != 'tr') {
-			  fragment = Element.docFragment();
-			  oldContainer = container;
-			  container = new Element('tr');
-  			fragment.appendChild(container);
-  			oldContainer.appendChild(fragment);
+				fragment = Element.docFragment();
+				oldContainer = container;
+				container = new Element('tr');
+				fragment.appendChild(container);
+				oldContainer.appendChild(fragment);
 			};
 		}
 	}
